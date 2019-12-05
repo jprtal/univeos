@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:/src/models/home_info_model.dart';
+import 'package:/src/models/user_info_model.dart';
 
-class UserInfo with ChangeNotifier {
+class RestInfo with ChangeNotifier {
 
   String _username;
   String _accessToken;
   String _pocketToken;
   int _id;
   String _document; // DNI
+  UserInfoModel _userInfo;
+  HomeInfoModel _homeInfo;
 
   get username {
     return _username;
@@ -54,6 +58,26 @@ class UserInfo with ChangeNotifier {
 
   set document(String value) {
     this._document = value;
+
+    notifyListeners();
+  }
+
+  UserInfoModel get userInfo {
+    return _userInfo;
+  }
+
+  set userInfo(UserInfoModel value) {
+    this._userInfo = value;
+
+    notifyListeners();
+  }
+
+  HomeInfoModel get homeInfo {
+    return _homeInfo;
+  }
+
+  set homeInfo(HomeInfoModel value) {
+    this._homeInfo = value;
 
     notifyListeners();
   }

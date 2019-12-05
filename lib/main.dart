@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:/src/bloc/bottom_navigation_bar.dart';
-import 'package:/src/bloc/user_info.dart';
+import 'package:/src/bloc/rest_info.dart';
 import 'package:/src/pages/bottom_app_bar_page.dart';
 import 'package:/src/pages/login_page.dart';
-import 'package:/src/utils/constants.dart';
+import 'package:/src/utils/palette.dart';
 import 'package:/src/utils/user_preferences.dart';
+import 'package:/src/utils/utils.dart';
  
 void main() async {
   final prefs = new UserPreferences();
   await prefs.initPrefs();
+
+  Utils.setPortraitModeOnly();
 
   runApp(MyApp());
 }
@@ -26,21 +29,21 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => UserInfo()),
+        ChangeNotifierProvider(create: (_) => RestInfo()),
         ChangeNotifierProvider(create: (_) => BottomNavigation()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: '',
         // initialRoute: (prefs.accessToken == '') ? 'login' : 'home',
-        initialRoute: 'login',
+        initialRoute: 'home',
         routes: {
           'login' : (BuildContext context) => LoginPage(),
           'home' : (BuildContext context) => BottomBarHomePage(),
         },
         theme: ThemeData(
-          primaryColor: Constants.deepRed,
-          accentColor: Constants.deepRed,
+          primaryColor: Palette.deepRed,
+          accentColor: Palette.deepRed,
         ),
       ),
     );
