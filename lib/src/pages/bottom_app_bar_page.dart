@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:/src/bloc/bottom_navigation_bar.dart';
 import 'package:/src/pages/home_page.dart';
+import 'package:/src/pages/news_page.dart';
 
 class BottomBarHomePage extends StatefulWidget {
 
@@ -30,15 +31,13 @@ class _BottomBarHomePageState extends State<BottomBarHomePage> {
           ),
           BottomNavigationBarItem(
             icon: new Icon(Icons.person),
-            title: new Text('Profile'),
+            title: new Text('Noticias'),
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.person),
+            title: new Text('Perfíl'),
           ),
         ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.menu),
-        onPressed: () {
-        }
       ),
     );
   }
@@ -46,7 +45,8 @@ class _BottomBarHomePageState extends State<BottomBarHomePage> {
   Widget _callPage(int page) {
     switch (page) {
       case 0: return HomePage();
-      case 1: return HomePage();
+      case 1: return NewsPage();
+      case 2: return HomePage();
       default: return HomePage();
     }
   }

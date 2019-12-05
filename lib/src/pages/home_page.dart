@@ -31,14 +31,14 @@ class _HomePageState extends State<HomePage> {
       } else {
         Provider.of<RestInfo>(context, listen: false).userInfo = value;
       }
-    });
+    }).catchError((error) => print(error));
     HomeInfoProvider().post(_prefs.accessToken).then((value) {
       if (value == null) {
         Navigator.pushReplacementNamed(context, 'login');
       } else {
         Provider.of<RestInfo>(context, listen: false).homeInfo = value;
       }
-    });
+    }).catchError((error) => print(error));
   }
 
   @override
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _header(provider.userInfo),
+              _header(context, provider.userInfo),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 2,
                 child: ListView.builder(
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                   shrinkWrap: true,
                   itemCount: provider.homeInfo.widgets.sortables.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return _card(provider.homeInfo.widgets.sortables[index]);
+                    return _card(context, provider.homeInfo.widgets.sortables[index]);
                   },
                 ),
               ),
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget _header(UserInfoModel info) {
+  Widget _header(BuildContext context, UserInfoModel info) {
     
     final size = MediaQuery.of(context).size;
 
@@ -114,16 +114,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _card(Sortable sortable) {
+  Widget _card(BuildContext context, Sortable sortable) {
 
     return Card(
       elevation: 4.0,
       margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-      child: _listTile(sortable)
+      child: _listTile(context, sortable)
     );
   }
 
-  Widget _listTile(Sortable sortable) {
+  Widget _listTile(BuildContext context, Sortable sortable) {
 
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),

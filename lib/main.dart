@@ -4,6 +4,7 @@ import 'package:/src/bloc/bottom_navigation_bar.dart';
 import 'package:/src/bloc/rest_info.dart';
 import 'package:/src/pages/bottom_app_bar_page.dart';
 import 'package:/src/pages/login_page.dart';
+import 'package:/src/pages/news_display_page.dart';
 import 'package:/src/utils/palette.dart';
 import 'package:/src/utils/user_preferences.dart';
 import 'package:/src/utils/utils.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         routes: {
           'login' : (BuildContext context) => LoginPage(),
           'home' : (BuildContext context) => BottomBarHomePage(),
+          'news' : (BuildContext context) => NewsDisplayPage(),
         },
         theme: ThemeData(
           primaryColor: Palette.deepRed,
