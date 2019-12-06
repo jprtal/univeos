@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     } else {
-      return Scaffold( body: Center(child: CircularProgressIndicator()));
+      return Scaffold(body: Center(child: CircularProgressIndicator()));
     }
   }
 

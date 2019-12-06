@@ -14,12 +14,11 @@ class SchoolPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Académico'),
       ),
-      body: _buildSubjects(context),
+      body: _buildAcademic(context)
     );
   }
 
-
-  Widget _buildSubjects(BuildContext context) {
+  Widget _buildAcademic(BuildContext context) {
 
     final provider = Provider.of<RestInfo>(context, listen: false);
 
@@ -27,11 +26,23 @@ class SchoolPage extends StatelessWidget {
       future: ClassesProvider().post(provider.homeInfo.accessToken),
       builder: (BuildContext context, AsyncSnapshot<ClassesModel> snapshot) {
         if (snapshot.hasData) {
-          final subjects = snapshot.data.subjects;
 
-          return ListView.builder(
-            itemCount: subjects.length,
-            itemBuilder: (context, i) => _card(context, subjects[i]),
+          final classesData = snapshot.data;
+
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _widgetsListView(context, classesData.widgets),
+
+                Container(
+                  padding: EdgeInsets.only(left: 15.0, bottom: 20.0),
+                  child: Text('MIS ASIGNATURAS', style: TextStyle(color: Colors.black, fontFamily: "Open Sans", fontSize: 14, fontWeight: FontWeight.w700))
+                ),
+
+                _subjectsListView(context, classesData.subjects),
+              ],
+            ),
           );
         } else {
           return Center(child: CircularProgressIndicator());
@@ -40,17 +51,97 @@ class SchoolPage extends StatelessWidget {
     );
   }
 
+  Widget _widgetsListView(BuildContext context, List<ClassWidget> classes) {
 
-  Widget _card(BuildContext context, Subject subject) {
+    return SizedBox(
+      height: 220,
+      child: ListView.builder(
+        
+        primary: false,
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        padding: EdgeInsets.only(right: 20.0),
+        itemCount: classes.length,
+        itemBuilder: (context, i) => Container(
+          padding: EdgeInsets.only(left: 20.0, top: 25.0),
+          child: _widgetsCard(context, classes[i])
+        ),
+      ),
+    );
+  }
+
+
+  Widget _widgetsCard(BuildContext context, ClassWidget classWidget) {
+
+    final background = Container(
+      height: 150,
+      width: 150,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: Colors.white,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 3.0,
+            offset: Offset(0.0, 2.0),
+            spreadRadius: 1.0
+          )
+        ]
+      ),
+    );
+
+    return InkWell (
+        child: Stack(
+        children: <Widget>[
+          background,
+          Container(
+            padding: EdgeInsets.only(top: 20.0, left: 20),
+            child: Image.network(classWidget.icon, height: 20.0, width: 20.0, color: Colors.red, colorBlendMode: BlendMode.srcIn),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 20),
+            child: Text(
+              classWidget.title, 
+              style: TextStyle(
+                color: Colors.black, 
+                fontSize: 14, 
+                fontFamily: 'Open Sans', 
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          )
+        ],
+      ),
+      onTap: () {
+        print(classWidget.title);
+
+        Utils.showWebview(context, classWidget.title, classWidget.url);
+      },
+    );
+  }
+
+  Widget _subjectsListView(BuildContext context, List<Subject> subjects) {
+    return ListView.builder(
+      primary: false,
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      padding: EdgeInsets.only(bottom: 50.0),
+      itemCount: subjects.length,
+      itemBuilder: (context, i) => _subjectCard(context, subjects[i]),
+    );
+  }
+
+
+  Widget _subjectCard(BuildContext context, Subject subject) {
 
     return Card(
       elevation: 2.0,
       margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 6.0),
-      child: _listTile(context, subject)
+      child: _subjectListTile(context, subject)
     );
   }
 
-  Widget _listTile(BuildContext context, Subject subject) {
+  Widget _subjectListTile(BuildContext context, Subject subject) {
 
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),

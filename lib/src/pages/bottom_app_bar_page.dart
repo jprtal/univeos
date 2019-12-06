@@ -44,7 +44,7 @@ class _BottomBarHomePageState extends State<BottomBarHomePage> {
           ),
           BottomNavigationBarItem(
             icon: new Icon(Icons.person),
-            title: new Text('Perfíl'),
+            title: new Text('Perfil'),
           ),
         ],
       ),
