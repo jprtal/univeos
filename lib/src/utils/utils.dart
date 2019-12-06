@@ -13,11 +13,18 @@ class Utils {
   }
 
   static void showPdf(BuildContext context, String title, String url) async {
-    PDFDocument document = await PDFDocument.fromURL(url);
+    try {
+      // When website is down it throws a NoSuchMethodError exception
+      PDFDocument document = await PDFDocument.fromURL(url);
 
-    Navigator.of(context).push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-      return new PdfPage(document: document, title: title);
-    }));
+      if (document != null) {
+        Navigator.of(context).push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+          return new PdfPage(document: document, title: title);
+        }));
+      }
+    } on NoSuchMethodError catch (_) {
+      print("Couldn't get the PDF document");
+    }
   }
 
   static void setPortraitModeOnly() {
