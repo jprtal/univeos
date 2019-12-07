@@ -4,6 +4,7 @@ import 'package:/src/bloc/bottom_navigation_bar.dart';
 import 'package:/src/pages/home_page.dart';
 import 'package:/src/pages/news_page.dart';
 import 'package:/src/pages/school_page.dart';
+import 'package:/src/pages/tui_page.dart';
 import 'package:/src/utils/palette.dart';
 
 class BottomBarHomePage extends StatefulWidget {
@@ -56,7 +57,7 @@ class _BottomBarHomePageState extends State<BottomBarHomePage> {
       case 0: return HomePage();
       case 1: return NewsPage();
       case 2: return SchoolPage();
-      case 3: return HomePage();
+      case 3: return TuiPage();
       default: return HomePage();
     }
   }
