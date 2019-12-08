@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:/src/utils/palette.dart';
 
 class UserBanner extends StatelessWidget {
 
@@ -14,7 +15,7 @@ class UserBanner extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-        CircleAvatar(backgroundImage: NetworkImage(url), radius: 25.0,),
+        CircleAvatar(backgroundImage: NetworkImage(url), radius: 25.0, backgroundColor: Palette.deepRed,),
         SizedBox(width: 15.0),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

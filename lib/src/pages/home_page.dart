@@ -98,10 +98,10 @@ class _HomePageState extends State<HomePage> {
         background,
         Container(
           padding: EdgeInsets.symmetric(vertical: 70.0, horizontal: 20),
-          child: Text("Universidad X", 
+          child: Text("", 
             style: TextStyle(
               color: Colors.white, 
-              fontSize: 36, 
+              fontSize: 42, 
               fontFamily: 'Gill Sans', 
               fontWeight: FontWeight.bold,
               letterSpacing: 2),)

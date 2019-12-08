@@ -5,7 +5,36 @@ import 'package:/src/api/news_provider.dart';
 import 'package:/src/bloc/rest_info.dart';
 import 'package:/src/models/news_model.dart';
 
-class NewsPage extends StatelessWidget {
+class NewsPage extends StatefulWidget {
+
+  @override
+  _NewsPageState createState() => _NewsPageState();
+}
+
+class _NewsPageState extends State<NewsPage> {
+
+  ScrollController _scrollController = ScrollController();
+  List<News> _items = List();
+  bool _isPerformingRequest = false;
+  int _page = 1;
+
+  @override
+  void initState() {
+    _getMoreData();
+    super.initState();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        _getMoreData();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,32 +42,43 @@ class NewsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Noticias'),
       ),
-      body: _buildNews(context),
+      body: _buildList()
     );
   }
 
+  void _getMoreData() async {
+    if (!_isPerformingRequest) {
+      setState(() {
+        _isPerformingRequest = true;
+      });
+ 
+      NewsModel newEntries = await NewsProvider().post(Provider.of<RestInfo>(context, listen: false).userInfo.accessToken, _page);
+      _page = newEntries.pagination.nextPage;
 
-  Widget _buildNews(BuildContext context) {
+      newEntries.news.forEach((f) {
+        _items.add(f);
+      });
+ 
+      setState(() {
+        _isPerformingRequest = false;
+      });
+    }
+  }
 
-    final provider = Provider.of<RestInfo>(context, listen: false);
+  Widget _buildList() {
 
-    return FutureBuilder(
-      future: NewsProvider().post(provider.homeInfo.accessToken),
-      builder: (BuildContext context, AsyncSnapshot<NewsModel> snapshot) {
-        if (snapshot.hasData) {
-          final news = snapshot.data.news;
-
-          return ListView.builder(
-            itemCount: news.length,
-            itemBuilder: (context, i) => _card(context, news[i]),
-          );
+    return ListView.builder(
+      itemCount: _items.length + 1,
+      itemBuilder: (context, index) {
+        if (index == _items.length) {
+          return _buildProgressIndicator();
         } else {
-          return Center(child: CircularProgressIndicator());
+          return _card(context, _items[index]);
         }
       },
+      controller: _scrollController,
     );
   }
-
 
   Widget _card(BuildContext context, News news) {
 
@@ -69,6 +109,18 @@ class NewsPage extends StatelessWidget {
           ],
         ),
         onTap: () => Navigator.pushNamed(context, 'news', arguments: news),
+      ),
+    );
+  }
+
+  Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: _isPerformingRequest ? 1.0 : 0.0,
+          child: new CircularProgressIndicator(),
+        ),
       ),
     );
   }

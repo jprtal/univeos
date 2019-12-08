@@ -9,7 +9,7 @@ class NewsProvider {
 
   final String _url = '';
 
-  Future<NewsModel> post(String accessToken) async {
+  Future<NewsModel> post(String accessToken, int page) async {
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: "application/json; charset=UTF-8",
       HttpHeaders.userAgentHeader: ""
@@ -22,7 +22,7 @@ class NewsProvider {
       "keyName": "news",
       "locale": "es",
       "paginationParams": {
-        "block": 1,
+        "block": page,
         "perBlock": 9
       }
     };

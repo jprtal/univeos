@@ -82,9 +82,9 @@ class SchoolPage extends StatelessWidget {
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black26,
-            blurRadius: 3.0,
+            blurRadius: 1.0,
             offset: Offset(0.0, 2.0),
-            spreadRadius: 1.0
+            // spreadRadius: 1.0
           )
         ]
       ),
