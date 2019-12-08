@@ -21,6 +21,14 @@ class TuiPage extends StatelessWidget {
         title: Text('Tarjeta virtual'),
         actions: <Widget>[
           IconButton(
+            icon: Image.asset('assets/images/qr_round.png', color: Colors.white, colorBlendMode: BlendMode.srcIn, scale: 3),
+            onPressed: () {
+              if (render != null) {
+                Navigator.pushNamed(context, 'qr', arguments: render);
+              }
+            },
+          ),
+          IconButton(
             icon: Icon(Icons.fullscreen),
             iconSize: 40.0,
             onPressed: () {
@@ -68,12 +76,8 @@ class TuiPage extends StatelessWidget {
           return SafeArea(
             child: Column(
               children: <Widget>[
-                SizedBox(height: 50.0),
                 _barcode(snapshot.data.render.barcode),
-                SizedBox(height: 50.0),
                 _card(snapshot.data.render),
-                // SizedBox(height: 50.0),
-                // _buttons()
               ],
             ),
           );
@@ -87,7 +91,7 @@ class TuiPage extends StatelessWidget {
   Widget _card(Render render) {
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       child: FlipCard(
         front: RotatedBox(
           quarterTurns: 5,
@@ -103,16 +107,10 @@ class TuiPage extends StatelessWidget {
 
   Widget _barcode(Barcode barcode) {
 
-    // return QrImage(
-    //   data: "1234567890",
-    //   version: QrVersions.auto,
-    //   size: 200.0,
-    // );
-
     return BarCodeImage(
+      padding: EdgeInsets.symmetric(vertical: 70.0),
       params: Code39BarCodeParams(
         barcode.value,
-        // lineWidth: 2.0,
         barHeight: 90.0,
         withText: false,
       ), onError: (error) {
@@ -134,9 +132,7 @@ class TuiPage extends StatelessWidget {
 
           },
         ),
-        
-        SizedBox(width: 20.0,),
-
+        SizedBox(width: 20.0),
         IconButton(
           color: Palette.deepRed,
           iconSize: 50.0,
