@@ -24,7 +24,7 @@ class NewsDisplayPage extends StatelessWidget {
                 // https://stackoverflow.com/questions/50764558/expand-the-app-bar-in-flutter-to-allow-multi-line-title
                 title: ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxWidth: size.width - 160,
+                    maxWidth: size.width - 170,
                   ),
                   child: Text(data.newTitle, 
                     style: TextStyle(fontFamily: 'Gill Sans', fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 1.0)
