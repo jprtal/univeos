@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:/src/api/news_provider.dart';
 import 'package:/src/bloc/rest_info.dart';
@@ -63,7 +64,7 @@ class NewsPage extends StatelessWidget {
               ),
             ListTile(
               title: Text(news.newTitle),
-              subtitle: Text(news.newPublicDate.toLocal().toString()),
+              subtitle: Text(DateFormat("dd-MM-yyyy").format(news.newPublicDate)),
             ),
           ],
         ),
