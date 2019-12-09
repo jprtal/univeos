@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
 
     final background = Container(
-      height: size.height * 0.35,
+      height: size.height * 0.4,
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -104,10 +104,12 @@ class _HomePageState extends State<HomePage> {
               fontSize: 42, 
               fontFamily: 'Gill Sans', 
               fontWeight: FontWeight.bold,
-              letterSpacing: 2),)
+              letterSpacing: 2
+            ),
+          )
         ),
         Container(
-          padding: EdgeInsets.only(top: 190.0, left: 20),
+          padding: EdgeInsets.only(top: 210.0, left: 25),
           child: UserBanner(firstName: info.firstName, lastName: info.lastName, url: info.avatar),
         )
       ],
@@ -118,7 +120,7 @@ class _HomePageState extends State<HomePage> {
 
     return Card(
       elevation: 4.0,
-      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       child: _listTile(context, sortable)
     );
   }

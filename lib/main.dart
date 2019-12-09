@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: '',
-        // initialRoute: (prefs.accessToken == '') ? 'login' : 'home',
-        initialRoute: 'home',
+        initialRoute: (prefs.accessToken == '') ? 'login' : 'home',
+        // initialRoute: 'home',
         routes: {
           'login' : (BuildContext context) => LoginPage(),
           'home' : (BuildContext context) => BottomBarHomePage(),
