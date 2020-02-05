@@ -12,6 +12,7 @@ import 'package:/src/utils/user_preferences.dart';
 import 'package:/src/utils/utils.dart';
  
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final prefs = new UserPreferences();
   await prefs.initPrefs();
 
