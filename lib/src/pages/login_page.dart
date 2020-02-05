@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           SafeArea(
             child: Container(
-              height: 170.0,
+              height: size.height * 0.2,
             ),
           ),
 
@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
       children: <Widget>[
         background,
         Container(
-          padding: EdgeInsets.symmetric(vertical: 80.0, horizontal: size.width * 0.38),
+          padding: EdgeInsets.symmetric(vertical: size.height * 0.1, horizontal: size.width * 0.38),
           child: Icon(Icons.person_pin, color: Colors.white, size: 100.0),
         )
       ],

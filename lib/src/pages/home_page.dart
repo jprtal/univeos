@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
       children: <Widget>[
         background,
         Container(
-          padding: EdgeInsets.symmetric(vertical: 70.0, horizontal: 20),
+          padding: EdgeInsets.symmetric(vertical: size.height * 0.1, horizontal: 20),
           child: Text("", 
             style: TextStyle(
               color: Colors.white, 
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
           )
         ),
         Container(
-          padding: EdgeInsets.only(top: 210.0, left: 25),
+          padding: EdgeInsets.only(top: size.height * 0.3, left: 25),
           child: UserBanner(firstName: info.firstName, lastName: info.lastName, url: info.avatar),
         )
       ],
