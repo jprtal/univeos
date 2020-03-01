@@ -12,6 +12,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   final loginProvider = new LoginProvider();
   String password;
 
@@ -19,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     
     return Scaffold(
+      key: _scaffoldKey,
       body: Stack(
         children: <Widget>[
           _background(context),
@@ -166,6 +169,9 @@ class _LoginPageState extends State<LoginPage> {
 
     if (token != null) {
       Navigator.pushReplacementNamed(context, 'home');
+    } else {
+      final snackBar = SnackBar(content: Text('Usuario o contraseña incorrectos'));
+      _scaffoldKey.currentState.showSnackBar(snackBar);
     }
   }
   
