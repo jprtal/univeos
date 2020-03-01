@@ -44,7 +44,9 @@ class _BottomBarHomePageState extends State<BottomBarHomePage> {
         showUnselectedLabels: true,
         currentIndex: provider.currentIndex,
         onTap: (index) {
-          provider.currentIndex = index;
+          if(provider.currentIndex != index) {
+            provider.currentIndex = index;
+          }
         },
         items: [
           BottomNavigationBarItem(
