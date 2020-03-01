@@ -4,8 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:/src/utils/user_preferences.dart';
-
-import '../utils/utils.dart';
+import 'package:/src/utils/utils.dart';
 
 class LoginProvider {
 
@@ -13,6 +12,8 @@ class LoginProvider {
   final _prefs = new UserPreferences();
 
   Future<String> post(String username, String password) async {
+    print("Login request");
+
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: "application/json; charset=UTF-8",
       HttpHeaders.userAgentHeader: ""
@@ -26,10 +27,10 @@ class LoginProvider {
       "password": password
     };
 
-    print(body['firebaseToken']);
-
     final resp = await http.post(_url, headers: headers, body: json.encode(body));
     final decodedData = json.decode(resp.body);
+
+    print(body['firebaseToken']);
 
     if (decodedData['accessToken'] != null) {
       _prefs.accessToken = decodedData['accessToken'];

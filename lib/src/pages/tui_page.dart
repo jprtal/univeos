@@ -7,6 +7,7 @@ import 'package:/src/models/tui_model.dart';
 import 'dart:convert';
 import 'package:barcode_flutter/barcode_flutter.dart';
 import 'package:/src/utils/palette.dart';
+import 'package:/src/utils/user_preferences.dart';
 
 class TuiPage extends StatelessWidget {
 
@@ -49,7 +50,7 @@ class TuiPage extends StatelessWidget {
     final provider = Provider.of<RestInfo>(context, listen: false);
 
     return FutureBuilder(
-      future: TuiProvider().logint(provider.userInfo.id.toString(), provider.userInfo.accessToken),
+      future: TuiProvider().logint(provider.userInfo.id.toString(), UserPreferences().accessToken),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
 

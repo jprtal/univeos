@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:/src/api/classes_provider.dart';
-import 'package:/src/bloc/rest_info.dart';
 import 'package:/src/models/classes_model.dart';
 import 'package:/src/utils/palette.dart';
+import 'package:/src/utils/user_preferences.dart';
 import 'package:/src/utils/utils.dart';
 
 class SchoolPage extends StatelessWidget {
@@ -20,10 +19,9 @@ class SchoolPage extends StatelessWidget {
 
   Widget _buildAcademic(BuildContext context) {
 
-    final provider = Provider.of<RestInfo>(context, listen: false);
 
     return FutureBuilder(
-      future: ClassesProvider().post(provider.homeInfo.accessToken),
+      future: ClassesProvider().post(UserPreferences().accessToken),
       builder: (BuildContext context, AsyncSnapshot<ClassesModel> snapshot) {
         if (snapshot.hasData) {
 

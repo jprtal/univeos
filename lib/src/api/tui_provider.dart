@@ -12,6 +12,8 @@ import 'package:/src/utils/utils.dart';
 class TuiProvider {
 
   Future<String> logint(String userId, String accessToken) async {
+    print("TUI logint request");
+
     final String url = '';
 
     Map<String, String> headers = {
@@ -39,6 +41,8 @@ class TuiProvider {
   }
 
   Future<TuiModel> cardUpdate(String bearer, UserInfoModel userInfo) async {
+    print("TUI cardUpdate request");
+    
     final String url = '';
 
     Map<String, String> headers = {
@@ -96,7 +100,7 @@ class TuiProvider {
 
     http.Response response = await http.Response.fromStream(await request.send());
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       // final decodedData = json.decode(response.body);

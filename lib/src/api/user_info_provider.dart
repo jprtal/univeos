@@ -12,6 +12,8 @@ class UserInfoProvider {
   final _prefs = new UserPreferences();
 
   Future<UserInfoModel> post(String accessToken) async {
+    print("UserInfo request");
+
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: "application/json; charset=UTF-8",
       HttpHeaders.userAgentHeader: ""

@@ -10,68 +10,50 @@ import 'package:/src/utils/user_preferences.dart';
 import 'package:/src/utils/utils.dart';
 import 'package:/src/widgets/user_banner.dart';
 
-class HomePage extends StatefulWidget {
-  
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
 
   final _prefs = new UserPreferences();
 
   @override
-  void initState() {
-    super.initState();
-
-    // TODO: improve token handling at startup
-    UserInfoProvider().post(_prefs.accessToken).then((value) {
-      if (value == null) {
-        Navigator.pushReplacementNamed(context, 'login');
-      } else {
-        Provider.of<RestInfo>(context, listen: false).userInfo = value;
-      }
-    }).catchError((error) => print(error));
-    HomeInfoProvider().post(_prefs.accessToken).then((value) {
-      if (value == null) {
-        Navigator.pushReplacementNamed(context, 'login');
-      } else {
-        Provider.of<RestInfo>(context, listen: false).homeInfo = value;
-      }
-    }).catchError((error) => print(error));
-  }
-
-  @override
   Widget build(BuildContext context) {
 
-    final provider = Provider.of<RestInfo>(context);
+    final provider = Provider.of<RestInfo>(context, listen: false);
 
-    if (provider.userInfo != null && provider.homeInfo != null) {
-      return Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _header(context, provider.userInfo),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 2,
-                child: ListView.builder(
-                  primary: false,
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: provider.homeInfo.widgets.sortables.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return _card(context, provider.homeInfo.widgets.sortables[index]);
-                  },
-                ),
+    return FutureBuilder(
+      future: HomeInfoProvider().post(_prefs.accessToken),
+      builder: (BuildContext context, AsyncSnapshot<HomeInfoModel> snapshot) {
+
+        if (snapshot.hasData) {
+
+          final homeData = snapshot.data;
+
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _header(context, provider.userInfo),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: ListView.builder(
+                      primary: false,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: homeData.widgets.sortables.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _card(context, homeData.widgets.sortables[index]);
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-      );
-    } else {
-      return Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
+            ),
+          );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      }
+    );
   }
 
   Widget _header(BuildContext context, UserInfoModel info) {
