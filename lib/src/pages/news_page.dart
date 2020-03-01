@@ -53,7 +53,7 @@ class _NewsPageState extends State<NewsPage> {
       });
  
       NewsModel newEntries = await NewsProvider().post(Provider.of<RestInfo>(context, listen: false).userInfo.accessToken, _page);
-      _page = newEntries.pagination.nextPage;
+      _page++;
 
       newEntries.news.forEach((f) {
         _items.add(f);

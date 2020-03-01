@@ -11,24 +11,20 @@ String newsModelToJson(NewsModel data) => json.encode(data.toJson());
 class NewsModel {
     String accessToken;
     List<News> news;
-    Pagination pagination;
 
     NewsModel({
         this.accessToken,
         this.news,
-        this.pagination,
     });
 
     factory NewsModel.fromJson(Map<String, dynamic> json) => NewsModel(
         accessToken: json["accessToken"],
         news: List<News>.from(json["news"].map((x) => News.fromJson(x))),
-        pagination: Pagination.fromJson(json["pagination"]),
     );
 
     Map<String, dynamic> toJson() => {
         "accessToken": accessToken,
         "news": List<dynamic>.from(news.map((x) => x.toJson())),
-        "pagination": pagination.toJson(),
     };
 }
 
@@ -89,37 +85,5 @@ class News {
         "newShares": newShares,
         "newTitle": newTitle,
         "videoUrl": videoUrl,
-    };
-}
-
-class Pagination {
-    int currentPage;
-    int nextPage;
-    dynamic prevPage;
-    int totalCount;
-    int totalPages;
-
-    Pagination({
-        this.currentPage,
-        this.nextPage,
-        this.prevPage,
-        this.totalCount,
-        this.totalPages,
-    });
-
-    factory Pagination.fromJson(Map<String, dynamic> json) => Pagination(
-        currentPage: json["currentPage"],
-        nextPage: json["nextPage"],
-        prevPage: json["prevPage"],
-        totalCount: json["totalCount"],
-        totalPages: json["totalPages"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "currentPage": currentPage,
-        "nextPage": nextPage,
-        "prevPage": prevPage,
-        "totalCount": totalCount,
-        "totalPages": totalPages,
     };
 }
