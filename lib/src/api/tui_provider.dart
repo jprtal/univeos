@@ -70,25 +70,19 @@ class TuiProvider {
       'username': userInfo.username
     };
 
-    final uid = ;
-
     // Only Android for now
     Map<String, String> device = {
       'appVersion': '',
       'compilever': deviceData['version.sdkInt'].toString(),
-      // 'data': '{}',
       'data': null,
-      // 'deviceid': deviceData['androidId'],
-      'deviceid': uid,
+      'deviceid': deviceData['androidId'],
       'model': deviceData['model'],
       'nfc': 'true',
       'osid': deviceData['version.release'],
-      // 'osversion': deviceData['version.release'],
       'osversion': 'Android',
       'root': 'false',
       'trademark': deviceData['manufacturer'],
-      // 'udid': deviceData['androidId'],
-      'udid': uid,
+      'udid': deviceData['androidId'],
       'universiaVersion': '',
     };
 
@@ -97,7 +91,7 @@ class TuiProvider {
     request.headers.addAll(headers);
     request.fields['user'] = json.encode(user);
     request.fields['device'] = json.encode(device);
-    request.fields['force'] = 'false';
+    request.fields['force'] = 'true';
     request.fields['forceUpdate'] = 'true';
 
     http.Response response = await http.Response.fromStream(await request.send());
