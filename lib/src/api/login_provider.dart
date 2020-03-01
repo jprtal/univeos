@@ -5,6 +5,8 @@ import 'dart:convert';
 
 import 'package:/src/utils/user_preferences.dart';
 
+import '../utils/utils.dart';
+
 class LoginProvider {
 
   final String _url = '';
@@ -19,10 +21,12 @@ class LoginProvider {
     Map<String, String> body = {
       "appIdentifier": "",
       "email": username,
-      "firebaseToken": "",
+      "firebaseToken": "${Utils.randomString(11)}",
       "locale": "es",
       "password": password
     };
+
+    print(body['firebaseToken']);
 
     final resp = await http.post(_url, headers: headers, body: json.encode(body));
     final decodedData = json.decode(resp.body);

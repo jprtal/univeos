@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,8 +9,22 @@ import 'package:/src/pages/webview_page.dart';
 
 class Utils {
 
-  static void showWebview(BuildContext context, String title, String url) async {
-    Navigator.of(context).push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+  static String randomString(int length) {
+    final chars =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    Random random = new Random();
+    String result = "";
+    for (var i = 0; i < length; i++) {
+      result += chars[random.nextInt(chars.length)];
+    }
+
+    return result;
+  }
+
+  static void showWebview(
+      BuildContext context, String title, String url) async {
+    Navigator.of(context)
+        .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
       return new WebViewWebPage(title: title, url: url);
     }));
   }
@@ -19,7 +35,8 @@ class Utils {
       PDFDocument document = await PDFDocument.fromURL(url);
 
       if (document != null) {
-        Navigator.of(context).push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+        Navigator.of(context)
+            .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
           return new PdfPage(document: document, title: title);
         }));
       }
@@ -30,8 +47,8 @@ class Utils {
 
   static void setPortraitModeOnly() {
     SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
     ]);
   }
 
@@ -82,5 +99,5 @@ class Utils {
       'utsname.machine:': data.utsname.machine,
     };
   }
-
+  
 }
