@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:/src/models/home_info_model.dart';
+import 'package:/src/models/tui_model.dart';
 import 'package:/src/models/user_info_model.dart';
 
 class RestInfo with ChangeNotifier {
@@ -11,6 +12,7 @@ class RestInfo with ChangeNotifier {
   String _document; // DNI
   UserInfoModel _userInfo;
   HomeInfoModel _homeInfo;
+  TuiModel _tui;
 
   get username {
     return _username;
@@ -80,6 +82,14 @@ class RestInfo with ChangeNotifier {
     this._homeInfo = value;
 
     notifyListeners();
+  }
+
+  TuiModel get tui {
+    return _tui;
+  }
+
+  set tui(TuiModel value) {
+    this._tui = value;
   }
 
 }

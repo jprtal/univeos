@@ -6,16 +6,15 @@ import 'package:/src/bloc/rest_info.dart';
 import 'package:/src/models/tui_model.dart';
 import 'dart:convert';
 import 'package:barcode_flutter/barcode_flutter.dart';
-import 'package:/src/utils/palette.dart';
 import 'package:/src/utils/user_preferences.dart';
 
+// https://github.com/flutter/flutter/issues/34947
 class TuiPage extends StatelessWidget {
-
-  // TODO: use provider to handle all this mess
-  Render render;
 
   @override
   Widget build(BuildContext context) {
+
+    final provider = Provider.of<RestInfo>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -24,8 +23,8 @@ class TuiPage extends StatelessWidget {
           IconButton(
             icon: Image.asset('assets/images/qr_round.png', color: Colors.white, colorBlendMode: BlendMode.srcIn, scale: 3),
             onPressed: () {
-              if (render != null) {
-                Navigator.pushNamed(context, 'qr', arguments: render);
+              if (provider.tui.render != null) {
+                Navigator.pushNamed(context, 'qr', arguments: provider.tui.render);
               }
             },
           ),
@@ -33,28 +32,26 @@ class TuiPage extends StatelessWidget {
             icon: Icon(Icons.fullscreen),
             iconSize: 40.0,
             onPressed: () {
-              if (render != null) {
-                Navigator.pushNamed(context, 'tui', arguments: render);
+              if (provider.tui.render != null) {
+                Navigator.pushNamed(context, 'tui', arguments: provider.tui.render);
               }
             },
           ),
         ],
       ),
-      body: _buildTui(context)
+      body: _buildTui(context, provider)
     );
   }
 
 
-  Widget _buildTui(BuildContext context) {
-
-    final provider = Provider.of<RestInfo>(context, listen: false);
+  Widget _buildTui(BuildContext context, RestInfo provider) {
 
     return FutureBuilder(
       future: TuiProvider().logint(provider.userInfo.id.toString(), UserPreferences().accessToken),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
 
-          return _buildCard(context, snapshot.data);
+          return _buildCard(context, provider, snapshot.data);
         } else {
 
           return Center(child: CircularProgressIndicator());
@@ -64,15 +61,14 @@ class TuiPage extends StatelessWidget {
   }
 
 
-  Widget _buildCard(BuildContext context, String bearer) {
+  Widget _buildCard(BuildContext context, RestInfo provider, String bearer) {
 
-    final provider = Provider.of<RestInfo>(context, listen: false);
 
     return FutureBuilder(
       future: TuiProvider().cardUpdate(bearer, provider.userInfo),
       builder: (BuildContext context, AsyncSnapshot<TuiModel> snapshot) {
         if (snapshot.hasData) {
-          render = snapshot.data.render;
+          provider.tui = snapshot.data;
 
           return SafeArea(
             child: Column(
@@ -120,30 +116,30 @@ class TuiPage extends StatelessWidget {
     );
   }
 
-  Widget _buttons() {
+  // Widget _buttons() {
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        IconButton(
-          color: Palette.deepRed,
-          iconSize: 50.0,
-          icon: Icon(Icons.grid_on),
-          onPressed: () {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: <Widget>[
+  //       IconButton(
+  //         color: Palette.deepRed,
+  //         iconSize: 50.0,
+  //         icon: Icon(Icons.grid_on),
+  //         onPressed: () {
 
-          },
-        ),
-        SizedBox(width: 20.0),
-        IconButton(
-          color: Palette.deepRed,
-          iconSize: 50.0,
-          icon: Icon(Icons.grid_off),
-          onPressed: () {
+  //         },
+  //       ),
+  //       SizedBox(width: 20.0),
+  //       IconButton(
+  //         color: Palette.deepRed,
+  //         iconSize: 50.0,
+  //         icon: Icon(Icons.grid_off),
+  //         onPressed: () {
 
-          },
-        )
-      ],
-    );
-  }
+  //         },
+  //       )
+  //     ],
+  //   );
+  // }
 
 }
