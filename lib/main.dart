@@ -6,7 +6,9 @@ import 'package:/src/pages/bottom_app_bar_page.dart';
 import 'package:/src/pages/login_page.dart';
 import 'package:/src/pages/news_display_page.dart';
 import 'package:/src/pages/qr_fullscreen_page.dart';
+import 'package:/src/pages/splash_page.dart';
 import 'package:/src/pages/tui_fullscreen_page.dart';
+import 'package:/src/pages/tui_page.dart';
 import 'package:/src/utils/palette.dart';
 import 'package:/src/utils/user_preferences.dart';
 import 'package:/src/utils/utils.dart';
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
     print('preferencias-accessToken: ${prefs.accessToken}');
     print('preferencias-username: ${prefs.username}');
 
+    // TODO: clean this provider nonsense
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => RestInfo()),
@@ -39,14 +42,16 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: '',
-        initialRoute: (prefs.accessToken == '') ? 'login' : 'home',
+        initialRoute: (prefs.accessToken == '') ? 'login' : 'splash',
         // initialRoute: 'home',
         routes: {
-          'login' : (BuildContext context) => LoginPage(),
-          'home' : (BuildContext context) => BottomBarHomePage(),
-          'news' : (BuildContext context) => NewsDisplayPage(),
-          'tui' : (BuildContext context) => TuiFullscreenPage(),
-          'qr' : (BuildContext context) => QrFullscreenPage(),
+          'splash' : (context) => SplashPage(),
+          'login' : (context) => LoginPage(),
+          'home' : (context) => BottomBarHomePage(),
+          'news' : (context) => NewsDisplayPage(),
+          'profile': (context) => TuiPage(),
+          'tui' : (context) => TuiFullscreenPage(),
+          'qr' : (context) => QrFullscreenPage(),
         },
         theme: ThemeData(
           primaryColor: Palette.deepRed,

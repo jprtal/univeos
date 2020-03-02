@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:/src/api/home_info_provider.dart';
-import 'package:/src/api/user_info_provider.dart';
 import 'package:/src/bloc/rest_info.dart';
 import 'package:/src/models/home_info_model.dart';
 import 'package:/src/models/user_info_model.dart';

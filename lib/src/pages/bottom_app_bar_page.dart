@@ -19,19 +19,6 @@ class BottomBarHomePage extends StatefulWidget {
 class _BottomBarHomePageState extends State<BottomBarHomePage> {
 
   @override
-  void initState() { 
-    super.initState();
-    
-    UserInfoProvider().post(UserPreferences().accessToken).then((data) {
-      if (data == null) {
-        Navigator.pushReplacementNamed(context, 'login');
-      } else {
-        Provider.of<RestInfo>(context, listen: false).userInfo = data;
-      }
-    }).catchError((error) => print(error));
-  }
-
-  @override
   Widget build(BuildContext context) {
 
     final provider = Provider.of<BottomNavigation>(context);
