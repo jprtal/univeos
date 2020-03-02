@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
           )
         ),
         Container(
-          padding: EdgeInsets.only(top: size.height * 0.3, left: 25),
+          padding: EdgeInsets.only(top: size.height * 0.29, left: 25),
           child: UserBanner(firstName: info.firstName, lastName: info.lastName, url: info.avatar),
         )
       ],
@@ -100,7 +100,7 @@ class HomePage extends StatelessWidget {
   Widget _card(BuildContext context, Sortable sortable) {
 
     return Card(
-      elevation: 4.0,
+      elevation: 3.0,
       margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       child: _listTile(context, sortable)
     );

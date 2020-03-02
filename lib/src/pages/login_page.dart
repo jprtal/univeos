@@ -72,11 +72,11 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             child: Column(
               children: <Widget>[
                 Text('Login', style: TextStyle(fontSize: 28.0)),
-                SizedBox(height: 40.0),
+                SizedBox(height: 35.0),
                 _usernameField(provider),
                 SizedBox(height: 30.0),
                 _passwordField(),
-                SizedBox(height: 40.0),
+                SizedBox(height: 50.0),
                 _loginButton(provider, context)
               ],
             ),
@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
   Widget _loginButton(RestInfo provider, BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 80.0),
+      padding: EdgeInsets.symmetric(horizontal: 70.0),
       child: Container(
         key: _globalKey,
         height: 48,
@@ -146,7 +146,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     if (_state == 0) {
       return Text(
         "Acceder",
-        style: TextStyle(color: Colors.white, fontSize: 17, letterSpacing: 1.0),
+        style: TextStyle(color: Colors.white, fontSize: 16, letterSpacing: 1.0),
       );
     } else if (_state == 1) {
       return SizedBox(
