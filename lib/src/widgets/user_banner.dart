@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:/src/utils/palette.dart';
+import 'package:univeos/src/utils/palette.dart';
 
 class UserBanner extends StatelessWidget {
-
   final String firstName;
   final String lastName;
   final String url;
@@ -11,21 +10,31 @@ class UserBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-        CircleAvatar(backgroundImage: NetworkImage(url), radius: 25.0, backgroundColor: Palette.deepRed,),
+        CircleAvatar(
+          backgroundImage: NetworkImage(url),
+          radius: 25.0,
+          backgroundColor: Palette.deepRed,
+        ),
         SizedBox(width: 15.0),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(firstName, style: TextStyle(color: Colors.white, fontFamily: "Open Sans", fontWeight: FontWeight.bold)),
-            Text(lastName, style: TextStyle(color: Colors.white, fontFamily: "Open Sans", fontWeight: FontWeight.bold))
+            Text(firstName,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "Open Sans",
+                    fontWeight: FontWeight.bold)),
+            Text(lastName,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "Open Sans",
+                    fontWeight: FontWeight.bold))
           ],
         )
       ],
     );
   }
-  
 }

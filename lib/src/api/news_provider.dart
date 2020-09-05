@@ -3,35 +3,31 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:/src/models/news_model.dart';
-import 'package:/src/utils/user_preferences.dart';
+import 'package:univeos/src/models/news_model.dart';
+import 'package:univeos/src/utils/user_preferences.dart';
 
 class NewsProvider {
-
   final String _url = '';
   final _prefs = new UserPreferences();
 
   Future<NewsModel> post(String accessToken, int page) async {
-    print("News request");
+    print('News request');
 
     Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: "application/json; charset=UTF-8",
-      HttpHeaders.userAgentHeader: ""
+      HttpHeaders.contentTypeHeader: 'application/json; charset=UTF-8',
     };
 
     Map<String, dynamic> body = {
-      "accessToken": accessToken,
-      "appIdentifier": "",
-      "destinyType": "news",
-      "keyName": "news",
-      "locale": "es",
-      "paginationParams": {
-        "block": page,
-        "perBlock": 9
-      }
+      'accessToken': accessToken,
+      'appIdentifier': '',
+      'destinyType': 'news',
+      'keyName': 'news',
+      'locale': 'es',
+      'paginationParams': {'block': page, 'perBlock': 9}
     };
 
-    final resp = await http.post(_url, headers: headers, body: json.encode(body));
+    final resp =
+        await http.post(_url, headers: headers, body: json.encode(body));
 
     if (resp.statusCode == 200) {
       final decodedData = json.decode(resp.body);
@@ -44,5 +40,4 @@ class NewsProvider {
 
     return null;
   }
-
 }

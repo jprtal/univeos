@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:/src/models/home_info_model.dart';
-import 'package:/src/models/tui_model.dart';
-import 'package:/src/models/user_info_model.dart';
+import 'package:univeos/src/models/home_info_model.dart';
+import 'package:univeos/src/models/tui_model.dart';
+import 'package:univeos/src/models/user_info_model.dart';
 
 class RestInfo with ChangeNotifier {
-
   String _username;
   String _accessToken;
   String _pocketToken;
@@ -91,5 +90,4 @@ class RestInfo with ChangeNotifier {
   set tui(TuiModel value) {
     this._tui = value;
   }
-
 }

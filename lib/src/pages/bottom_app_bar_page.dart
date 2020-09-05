@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:/src/api/user_info_provider.dart';
-import 'package:/src/bloc/bottom_navigation_bar.dart';
-import 'package:/src/bloc/rest_info.dart';
-import 'package:/src/pages/home_page.dart';
-import 'package:/src/pages/news_page.dart';
-import 'package:/src/pages/school_page.dart';
-import 'package:/src/pages/tui_page.dart';
-import 'package:/src/utils/palette.dart';
-import 'package:/src/utils/user_preferences.dart';
+import 'package:univeos/src/bloc/bottom_navigation_bar.dart';
+import 'package:univeos/src/pages/home_page.dart';
+import 'package:univeos/src/pages/news_page.dart';
+import 'package:univeos/src/pages/school_page.dart';
+import 'package:univeos/src/pages/tui_page.dart';
+import 'package:univeos/src/utils/palette.dart';
 
 class BottomBarHomePage extends StatefulWidget {
-
   @override
   _BottomBarHomePageState createState() => _BottomBarHomePageState();
 }
 
 class _BottomBarHomePageState extends State<BottomBarHomePage> {
-
   @override
   Widget build(BuildContext context) {
-
     final provider = Provider.of<BottomNavigation>(context);
 
     return Scaffold(
@@ -31,7 +25,7 @@ class _BottomBarHomePageState extends State<BottomBarHomePage> {
         showUnselectedLabels: true,
         currentIndex: provider.currentIndex,
         onTap: (index) {
-          if(provider.currentIndex != index) {
+          if (provider.currentIndex != index) {
             provider.currentIndex = index;
           }
         },
@@ -59,12 +53,16 @@ class _BottomBarHomePageState extends State<BottomBarHomePage> {
 
   Widget _callPage(int page) {
     switch (page) {
-      case 0: return HomePage();
-      case 1: return NewsPage();
-      case 2: return SchoolPage();
-      case 3: return TuiPage();
-      default: return HomePage();
+      case 0:
+        return HomePage();
+      case 1:
+        return NewsPage();
+      case 2:
+        return SchoolPage();
+      case 3:
+        return TuiPage();
+      default:
+        return HomePage();
     }
   }
-  
 }

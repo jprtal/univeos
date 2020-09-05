@@ -1,30 +1,29 @@
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:/src/models/classes_model.dart';
+import 'package:univeos/src/models/classes_model.dart';
 import 'dart:convert';
 
-import 'package:/src/utils/user_preferences.dart';
+import 'package:univeos/src/utils/user_preferences.dart';
 
 class ClassesProvider {
-
   final String _url = '';
   final _prefs = new UserPreferences();
 
   Future<ClassesModel> post(String accessToken) async {
-    print("Classes request");
+    print('Classes request');
 
     Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: "application/json; charset=UTF-8",
-      HttpHeaders.userAgentHeader: ""
+      HttpHeaders.contentTypeHeader: 'application/json; charset=UTF-8',
     };
 
     Map<String, dynamic> body = {
-      "accessToken": accessToken,
-      "appIdentifier": "",
+      'accessToken': accessToken,
+      'appIdentifier': '',
     };
 
-    final resp = await http.post(_url, headers: headers, body: json.encode(body));
+    final resp =
+        await http.post(_url, headers: headers, body: json.encode(body));
 
     if (resp.statusCode == 200) {
       final decodedData = json.decode(resp.body);
@@ -37,5 +36,4 @@ class ClassesProvider {
 
     return null;
   }
-
 }

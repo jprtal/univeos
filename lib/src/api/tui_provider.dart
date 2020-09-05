@@ -3,22 +3,20 @@ import 'dart:io';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:/src/models/tui_model.dart';
+import 'package:univeos/src/models/tui_model.dart';
 import 'dart:convert';
 
-import 'package:/src/models/user_info_model.dart';
-import 'package:/src/utils/utils.dart';
+import 'package:univeos/src/models/user_info_model.dart';
+import 'package:univeos/src/utils/utils.dart';
 
 class TuiProvider {
-
   Future<String> logint(String userId, String accessToken) async {
-    print("TUI logint request");
+    print('TUI logint request');
 
     final String url = '';
 
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded',
-      HttpHeaders.userAgentHeader: ''
     };
 
     Map<String, String> body = {
@@ -41,14 +39,13 @@ class TuiProvider {
   }
 
   Future<TuiModel> cardUpdate(String bearer, UserInfoModel userInfo) async {
-    print("TUI cardUpdate request");
-    
-    final String url = '';
+    print('TUI cardUpdate request');
+
+    final String url = '/';
 
     Map<String, String> headers = {
       HttpHeaders.authorizationHeader: 'Bearer $bearer',
       HttpHeaders.contentTypeHeader: 'multipart/form-data',
-      HttpHeaders.userAgentHeader: ''
     };
 
     DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
@@ -56,7 +53,8 @@ class TuiProvider {
 
     try {
       if (Platform.isAndroid) {
-        deviceData = Utils.readAndroidBuildData(await deviceInfoPlugin.androidInfo);
+        deviceData =
+            Utils.readAndroidBuildData(await deviceInfoPlugin.androidInfo);
       } else if (Platform.isIOS) {
         deviceData = Utils.readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
       }
@@ -90,15 +88,15 @@ class TuiProvider {
       'universiaVersion': '',
     };
 
-
-    final request = new http.MultipartRequest("POST", Uri.parse(url));
+    final request = new http.MultipartRequest('POST', Uri.parse(url));
     request.headers.addAll(headers);
     request.fields['user'] = json.encode(user);
     request.fields['device'] = json.encode(device);
     request.fields['force'] = 'true';
     request.fields['forceUpdate'] = 'true';
 
-    http.Response response = await http.Response.fromStream(await request.send());
+    http.Response response =
+        await http.Response.fromStream(await request.send());
 
     // print(response.body);
 
@@ -106,7 +104,8 @@ class TuiProvider {
       // final decodedData = json.decode(response.body);
 
       // Need to substring because of the first and last characters
-      final decodedData = json.decode(response.body.substring(1, response.body.length - 1));
+      final decodedData =
+          json.decode(response.body.substring(1, response.body.length - 1));
 
       final tui = TuiModel.fromJson(decodedData);
 
@@ -115,5 +114,4 @@ class TuiProvider {
 
     return null;
   }
-
 }

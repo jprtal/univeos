@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:/src/api/login_provider.dart';
-import 'package:/src/api/user_info_provider.dart';
-import 'package:/src/bloc/rest_info.dart';
-import 'package:/src/utils/palette.dart';
+import 'package:univeos/src/api/login_provider.dart';
+import 'package:univeos/src/api/user_info_provider.dart';
+import 'package:univeos/src/bloc/rest_info.dart';
+import 'package:univeos/src/utils/palette.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,7 +13,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
-
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final GlobalKey _globalKey = GlobalKey();
 
@@ -127,7 +126,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         width: _width,
         child: RaisedButton(
           child: _setLoginButton(),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
           padding: EdgeInsets.all(0.0),
           elevation: 3.0,
           color: Palette.deepRed,
@@ -196,12 +196,10 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       height: size.height * 0.4,
       width: double.infinity,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: <Color>[Palette.deepRed, Palette.lightRed]
-        )
-      ),
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[Palette.deepRed, Palette.lightRed])),
     );
 
     return Stack(
@@ -209,9 +207,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         background,
         Container(
           padding: EdgeInsets.symmetric(
-            vertical: size.height * 0.1,
-            horizontal: size.width * 0.38
-          ),
+              vertical: size.height * 0.1, horizontal: size.width * 0.38),
           child: Icon(Icons.person_pin, color: Colors.white, size: 100.0),
         )
       ],
@@ -219,7 +215,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   }
 
   Future<void> _login(RestInfo provider, BuildContext context) async {
-
     final token = await LoginProvider().post(provider.username, _password);
 
     if (token != null) {
@@ -241,5 +236,4 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       _scaffoldKey.currentState.showSnackBar(snackBar);
     }
   }
-
 }

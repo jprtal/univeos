@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:/src/api/user_info_provider.dart';
-import 'package:/src/bloc/rest_info.dart';
-import 'package:/src/utils/user_preferences.dart';
+import 'package:univeos/src/api/user_info_provider.dart';
+import 'package:univeos/src/bloc/rest_info.dart';
+import 'package:univeos/src/utils/user_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -10,7 +10,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-
   @override
   void initState() {
     super.initState();

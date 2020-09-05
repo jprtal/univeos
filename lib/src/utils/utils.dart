@@ -4,11 +4,10 @@ import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
-import 'package:/src/pages/pdf_page.dart';
-import 'package:/src/pages/webview_page.dart';
+import 'package:univeos/src/pages/pdf_page.dart';
+import 'package:univeos/src/pages/webview_page.dart';
 
 class Utils {
-
   static String randomString(int length) {
     final chars =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -99,5 +98,4 @@ class Utils {
       'utsname.machine:': data.utsname.machine,
     };
   }
-  
 }
