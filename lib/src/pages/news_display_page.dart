@@ -34,7 +34,7 @@ class NewsDisplayPage extends StatelessWidget {
                             letterSpacing: 1.0)),
                   ),
                   background: Image.network(
-                    data.newImage,
+                    data.imgDetail,
                     fit: BoxFit.cover,
                     color: Colors.black38,
                     colorBlendMode: BlendMode.darken,

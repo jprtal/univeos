@@ -91,10 +91,10 @@ class _NewsPageState extends State<NewsPage> {
       child: InkWell(
         child: Column(
           children: <Widget>[
-            (news.newImage == '')
+            (news.imgWidget == '')
                 ? Image.asset('assets/images/placeholder.png')
                 : FadeInImage(
-                    image: NetworkImage(news.newImage),
+                    image: NetworkImage(news.imgWidget),
                     placeholder: AssetImage('assets/images/placeholder.png'),
                     height: 120.0,
                     width: double.infinity,
